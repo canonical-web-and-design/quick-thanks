@@ -14,13 +14,16 @@ model User {
   id    Int    @id @default(autoincrement())
   launchpadName String
   fullName String
-  recognitionsReceived Recognition[]
+  receivedRecognitions Recognition[] @relation(name: "author")
+  givenRecognitions Recognition[] @relation(name: "recipient")
 }
 
 model Recognition {
   id       Int  @id @default(autoincrement())
   published Boolean
   content String
-  recipient   User @relation(fields: [recipientId], references: [id])
+  recipient   User @relation("recipient", fields: [recipientId], references: [id])
   recipientId Int
+  author   User @relation("author", fields: [authorId], references: [id])
+  authorId Int
 }
