@@ -13,10 +13,11 @@ const SendButton = ({ users }) => {
 
   return (
     <>
-      <button onClick={() => setModalOpen(true)}>Send appreciation</button>
+      <button onClick={() => setModalOpen(true)}>Send Quick Thanks</button>
       {modalOpen ? (
         <Modal
-          title="Send appreciation"
+          close={closeHandler}
+          title="Send Quick Thanks"
           buttonRow={
             <>
               <button className="u-no-margin--bottom">Send</button>
@@ -31,22 +32,26 @@ const SendButton = ({ users }) => {
         >
           <form>
             <div>
-              <label>Receiver:</label>
-              <select>
-                <option value="">choose name</option>
-                {users.map((user) => (
-                  <option value={user.launchpadName}>{user.fullName}</option>
-                ))}
-              </select>
-              <label>Author:</label>
-              <select>
-                {users.map((user) => (
-                  <option value={user.launchpadName}>{user.fullName}</option>
-                ))}
-              </select>
+              <label>
+                From
+                <select>
+                  {users.map((user) => (
+                    <option value={user.launchpadName}>{user.fullName}</option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                To
+                <select>
+                  <option value="">choose name</option>
+                  {users.map((user) => (
+                    <option value={user.launchpadName}>{user.fullName}</option>
+                  ))}
+                </select>
+              </label>
             </div>
             <div>
-              <label>Content:</label>
+              <label>Quick Thanks</label>
               <textarea id="content"> </textarea>
             </div>
           </form>
