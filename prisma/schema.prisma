@@ -11,19 +11,19 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  launchpadName String
-  fullName String
+  id                   Int           @id @default(autoincrement())
+  launchpadName        String        @unique
+  fullName             String
   receivedRecognitions Recognition[] @relation(name: "author")
-  givenRecognitions Recognition[] @relation(name: "recipient")
+  givenRecognitions    Recognition[] @relation(name: "recipient")
 }
 
 model Recognition {
-  id       Int  @id @default(autoincrement())
-  published Boolean
-  content String
-  recipient   User @relation("recipient", fields: [recipientId], references: [id])
+  id          Int     @id @default(autoincrement())
+  published   Boolean
+  content     String
+  recipient   User    @relation("recipient", fields: [recipientId], references: [id])
   recipientId Int
-  author   User @relation("author", fields: [authorId], references: [id])
-  authorId Int
+  author      User    @relation("author", fields: [authorId], references: [id])
+  authorId    Int
 }
