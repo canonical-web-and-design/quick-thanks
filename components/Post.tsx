@@ -3,11 +3,12 @@ import Router from "next/router";
 import ReactMarkdown from "react-markdown";
 
 type User = {
+  id?: number;
   fullName: string;
 }
 
 export type PostProps = {
-  id: number;
+  id?: number;
   title: string;
   author: User | null;
   recipient: User;
@@ -16,6 +17,7 @@ export type PostProps = {
 };
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
+    console.log(post)
   const recipientName = post.recipient ? post.recipient.fullName : "Unknown author";
   const authorName = post.author ? post.author.fullName : "Unknown author";
   return (
