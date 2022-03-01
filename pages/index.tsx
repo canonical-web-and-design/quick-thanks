@@ -12,6 +12,9 @@ export const getStaticProps: GetStaticProps = async () => {
         recipient: {
           select: { fullName: true },
         },
+        author: {
+          select: { fullName: true }
+        }
       },
     });
     return { props: { feed } };
