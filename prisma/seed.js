@@ -1,5 +1,5 @@
-const { PrismaClient } = require('@prisma/client')
 const axios = require('axios')
+const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 
