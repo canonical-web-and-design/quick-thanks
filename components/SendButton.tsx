@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Modal } from "@canonical/react-components"
-import prisma from '../lib/prisma'
 import { RecognitionProps } from "./Recognition";
-import postRecognition from "../pages/api/recognitions";
-
 
 const SendButton = ({ users }) => {
   const [newData, setNewData] = useState<Partial<RecognitionProps>>({
@@ -17,8 +14,8 @@ const SendButton = ({ users }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const closeHandler = () => setModalOpen(false);
-  const handleSendButton =  () =>{
-    postRecognition(newData);
+  const handleSendButton =  () => {
+    // postRecognition(newData);
     // const recognition = await prisma.recognition.create({
     //     data: newData
     //   });
