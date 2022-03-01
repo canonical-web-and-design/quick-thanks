@@ -18,11 +18,14 @@ export const getStaticProps: GetStaticProps = async () => {
         }
       },
     });
-    return { props: { feed } };
+    const users = await prisma.user.findMany();
+
+    return { props: { feed, users } };
 }
 
 type Props = {
   feed: PostProps[]
+  users: any[]
 }
 
 const Blog: React.FC<Props> = (props) => {
@@ -43,7 +46,7 @@ const Blog: React.FC<Props> = (props) => {
                 <option value="andreu">Andreu</option>
                 <option value="peter">Peter</option>
               </select>
-              <SendButton />
+              <SendButton users={props.users}/>
             </div>
             <div style={{"display": "flex"}} >
             {props.feed.map((post) => (
