@@ -9,6 +9,10 @@ export type PostProps = {
     name: string;
     email: string;
   } | null;
+  recipient: {
+    name: string;
+    email: string;
+  },
   content: string;
   published: boolean;
 };
@@ -17,6 +21,7 @@ const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.author ? post.author.name : "Unknown author";
   return (
     <div onClick={() => Router.push("/p/[id]", `/p/${post.id}`)}>
+      <small>To {post.recipient.name}</small>
       <h2>{post.title}</h2>
       <small>By {authorName}</small>
       <ReactMarkdown children={post.content} />
