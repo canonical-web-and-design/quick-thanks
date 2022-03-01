@@ -18,12 +18,12 @@ export type PostProps = {
 };
 
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
-  const authorName = post.author ? post.author.name : "Unknown author";
+  const recipientName = post.recipient ? post.recipient.fullName : "Unknown author";
   return (
     <div onClick={() => Router.push("/p/[id]", `/p/${post.id}`)}>
       <small>To {post.recipient.name}</small>
       <h2>{post.title}</h2>
-      <small>By {authorName}</small>
+      <small>For {recipientName}</small>
       <ReactMarkdown children={post.content} />
       <style jsx>{`
         div {
