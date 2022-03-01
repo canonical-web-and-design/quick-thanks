@@ -6,6 +6,9 @@ const SendButton =() => {
 
   const closeHandler = () => setModalOpen(false);
 
+  const handleSendButton = () =>{
+    
+  }
   return <>
           <button onClick={() => setModalOpen(true)}>Send appreation</button>
           {modalOpen ? <Modal title="Send appreation" buttonRow={<>
@@ -18,6 +21,16 @@ const SendButton =() => {
           </>}>
             <form>
               <div>
+                <label>Receiver:</label>
+                <select>
+                  <option value="">choose name</option>
+                  <option value="min">Min</option>
+                  <option value="andrue">Andreu</option>
+                  <option value="peter">Peter</option>
+                  <option value="lydia">Lydia</option>
+                  <option value="dave">Dave</option>
+                </select>
+                <label>Author:</label>
                 <select>
                   <option value="">choose name</option>
                   <option value="min">Min</option>
