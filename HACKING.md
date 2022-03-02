@@ -9,3 +9,6 @@ How to get this running
 3. Run `npx prisma db push`
 
 4. Run `npx prisma studio` and add some users and recognitions via the UI.
+
+5. Run `npm run dev`
+
