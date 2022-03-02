@@ -1,14 +1,33 @@
 import { useState } from "react";
 import { Modal } from "@canonical/react-components"
+import { RecognitionProps } from "./Recognition";
 
 const SendButton = ({ users }) => {
+  const [newData, setNewData] = useState<Partial<RecognitionProps>>({
+    title: "",
+    author: { fullName: ""},
+    recipient:  {fullName: ""},
+    content:"",
+    published : true
+  });
 
   const [modalOpen, setModalOpen] = useState(false);
 
   const closeHandler = () => setModalOpen(false);
+  const handleSendButton =  () => {
+    // postRecognition(newData);
+    // const recognition = await prisma.recognition.create({
+    //     data: newData
+    //   });
+      // res.status(200).json(recognition);
+  }
 
-  const handleSendButton = () => {
-    
+  const handleChange = (e: any) => {
+    setNewData({...newData, [e.target.name] : e.target.value })
+  }
+  const handleAuthorChange = (e: any) => {
+    const name = e.target.name
+    setNewData({...newData, [e.target.name]: { fullname: e.target.value }})
   }
 
   return (
@@ -47,7 +66,7 @@ const SendButton = ({ users }) => {
                   {users.map((user) => (
                     <option value={user.launchpadName}>{user.fullName}</option>
                   ))}
-                </select>
+                  </select>
               </label>
             </div>
             <div>
@@ -60,4 +79,5 @@ const SendButton = ({ users }) => {
     </>
   );
 }
-export default SendButton
+
+export default SendButton;

@@ -3,11 +3,12 @@ import Router from "next/router";
 import ReactMarkdown from "react-markdown";
 
 type User = {
+  id?: number;
   fullName: string;
-}
+};
 
 export type RecognitionProps = {
-  id: number;
+  id?: number;
   title: string;
   author: User | null;
   recipient: User;
