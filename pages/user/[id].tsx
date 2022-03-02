@@ -33,7 +33,7 @@ type Props = {
 const Recognitions: React.FC<Props> = (props) => {
   return (
     <>
-      <h2>Quick Thanks for {props.user.fullName}</h2>
+      <h2>Quick Thanks for {props.user?.fullName}</h2>
       <div style={{ display: "flex" }}>
         {props.feed.length > 0 ? props.feed.map((recognition) => (
           <div

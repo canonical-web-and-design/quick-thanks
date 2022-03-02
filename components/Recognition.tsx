@@ -22,9 +22,13 @@ const Recognition: React.FC<{ recognition: RecognitionProps }> = ({
 
   return (
     <div className="p-card">
-      <small>From {authorName}</small>
-      <h2>{recognition.title}</h2>
-      <ReactMarkdown children={recognition.content} />
+      <small></small>
+      <blockquote className="p-pull-quote">
+        <p className="p-pull-quote__quote">
+          <ReactMarkdown children={recognition.content} />
+        </p>
+        <cite className="p-pull-quote__citation">From {authorName}</cite>
+      </blockquote>
       <style jsx>{`
         div {
           color: inherit;

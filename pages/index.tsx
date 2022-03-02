@@ -1,12 +1,8 @@
 import React from "react"
 import { GetStaticProps } from "next"
-import Layout from "../components/Layout"
-import Post, { PostProps } from "../components/Recognition"
 import SendButton from "../components/SendButton"
 import prisma from '../lib/prisma'
-import Head from 'next/head'
 import Link from 'next/link'
-import { Select } from "@canonical/react-components"
 
 export const getStaticProps: GetStaticProps = async () => {
     const feed = await prisma.recognition.findMany({
@@ -26,7 +22,6 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 type Props = {
-  feed: PostProps[]
   users: any[]
 }
 
