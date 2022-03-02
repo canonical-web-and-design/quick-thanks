@@ -28,7 +28,6 @@ type Props = {
 
 const Index: React.FC<Props> = (props) => {
   const { data: session, status } = useSession();
-  console.log(session);
   return (
     <section>
       <div className="p-strip--suru">
@@ -44,7 +43,9 @@ const Index: React.FC<Props> = (props) => {
           <ul>
             {props.users.map((user) => (
               <li key={user.id}>
-                <Link href={`/user/${user.id}`}>{user.fullName}</Link>
+                <Link href={`/user/${user.id}`}>
+                  <a>{user.fullName}</a>
+                </Link>
               </li>
             ))}
           </ul>
