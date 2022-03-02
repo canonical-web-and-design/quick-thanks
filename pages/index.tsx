@@ -40,7 +40,7 @@ const Index: React.FC<Props> = (props) => {
           <h2>Users</h2>
           <ul>
             {props.users.map((user) => (
-              <li>
+              <li key={user.id}>
                 <Link href={`/user/${user.id}`}>{user.fullName}</Link>
               </li>
             ))}

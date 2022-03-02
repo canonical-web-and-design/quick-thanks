@@ -7,9 +7,9 @@ type User = {
 
 export type RecognitionProps = {
   id?: number;
-  title: string;
-  author: User | null;
-  recipient: User;
+  author: User;
+  authorId: User | null | number
+  recipientId: User | number;
   content: string;
   published: boolean;
 };

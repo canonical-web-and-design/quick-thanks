@@ -3,31 +3,42 @@ import { Modal } from "@canonical/react-components"
 import { RecognitionProps } from "./Recognition";
 
 const SendButton = ({ users }) => {
-  const [newData, setNewData] = useState<Partial<RecognitionProps>>({
-    title: "",
-    author: { fullName: ""},
-    recipient:  {fullName: ""},
+  const initialValue = {
+    authorId: -1,
+    recipientId: -1,
     content:"",
     published : true
-  });
-
+  }
+  const [newData, setNewData] = useState<Partial<RecognitionProps>>(initialValue);
   const [modalOpen, setModalOpen] = useState(false);
 
   const closeHandler = () => setModalOpen(false);
-  const handleSendButton =  () => {
-    // postRecognition(newData);
-    // const recognition = await prisma.recognition.create({
-    //     data: newData
-    //   });
-      // res.status(200).json(recognition);
-  }
 
+  const handleSendButton =  async () => {
+    try {
+      if( newData.authorId === -1 || newData.recipientId === -1 || newData.content.length < 1 ){
+        alert("Check all the inputs")
+        return;
+      } 
+      const res = await fetch('api/recognitions', {
+        method: 'POST',
+        body: JSON.stringify(newData),
+      });
+      const status = await res.status
+      if(status === 200) {
+        alert("Submitted")
+        setNewData(initialValue)
+        setModalOpen(false);
+      }
+    } catch(err){
+      console.error(err);
+    }
+  }
   const handleChange = (e: any) => {
     setNewData({...newData, [e.target.name] : e.target.value })
   }
   const handleAuthorChange = (e: any) => {
-    const name = e.target.name
-    setNewData({...newData, [e.target.name]: { fullname: e.target.value }})
+    setNewData({...newData, [e.target.name]: +e.target.value})
   }
 
   return (
@@ -41,7 +52,7 @@ const SendButton = ({ users }) => {
           title="Send Quick Thanks"
           buttonRow={
             <>
-              <button className="u-no-margin--bottom">Send</button>
+              <button className="u-no-margin--bottom" onClick={handleSendButton}>Send</button>
               <button
                 className="p-button--negative u-no-margin--bottom"
                 onClick={closeHandler}
@@ -55,25 +66,26 @@ const SendButton = ({ users }) => {
             <div>
               <label>
                 From
-                <select>
+                <select  onChange={handleAuthorChange} name="authorId">
+                  <option value="">choose name</option>
                   {users.map((user) => (
-                    <option value={user.launchpadName}>{user.fullName}</option>
+                    <option key={user.id} value={user.id}>{user.fullName}</option>
                   ))}
                 </select>
               </label>
               <label>
                 To
-                <select>
+                <select onChange={handleAuthorChange} name="recipientId">
                   <option value="">choose name</option>
                   {users.map((user) => (
-                    <option value={user.launchpadName}>{user.fullName}</option>
+                    <option key={user.id} value={user.id}>{user.fullName}</option>
                   ))}
                 </select>
               </label>
             </div>
             <div>
-              <label>Quick Thanks</label>
-              <textarea id="content"> </textarea>
+              <label>Content</label>
+              <textarea id="content" name="content" value={newData.content} onChange={handleChange}> </textarea>
             </div>
           </form>
         </Modal>
