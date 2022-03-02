@@ -4,30 +4,29 @@ import { RecognitionProps } from "./Recognition";
 
 const SendButton = ({ users }) => {
   const [newData, setNewData] = useState<Partial<RecognitionProps>>({
-    title: "",
-    author: { fullName: ""},
-    recipient:  {fullName: ""},
+    authorId: -1,
+    recipientId: -1,
     content:"",
     published : true
   });
-
   const [modalOpen, setModalOpen] = useState(false);
 
   const closeHandler = () => setModalOpen(false);
-  const handleSendButton =  () => {
-    // postRecognition(newData);
-    // const recognition = await prisma.recognition.create({
-    //     data: newData
-    //   });
-      // res.status(200).json(recognition);
-  }
+
+  const handleSendButton =  async () => {
+        const res = await fetch('api/recognitions', {
+          method: 'POST',
+          body: JSON.stringify(newData),
+        });
+        const data = await res.json();
+        console.log(data)
+      };
 
   const handleChange = (e: any) => {
     setNewData({...newData, [e.target.name] : e.target.value })
   }
   const handleAuthorChange = (e: any) => {
-    const name = e.target.name
-    setNewData({...newData, [e.target.name]: { fullname: e.target.value }})
+    setNewData({...newData, [e.target.name]: +e.target.value})
   }
 
   return (
@@ -39,7 +38,7 @@ const SendButton = ({ users }) => {
           title="Send Quick Thanks"
           buttonRow={
             <>
-              <button className="u-no-margin--bottom">Send</button>
+              <button className="u-no-margin--bottom" onClick={handleSendButton}>Send</button>
               <button
                 className="p-button--negative u-no-margin--bottom"
                 onClick={closeHandler}
@@ -53,25 +52,25 @@ const SendButton = ({ users }) => {
             <div>
               <label>
                 From
-                <select>
+                <select  onChange={handleAuthorChange} name="authorId">
                   {users.map((user) => (
-                    <option value={user.launchpadName}>{user.fullName}</option>
+                    <option key={user.id} value={user.id}>{user.fullName}</option>
                   ))}
                 </select>
               </label>
               <label>
                 To
-                <select>
+                <select onChange={handleAuthorChange} name="recipientId">
                   <option value="">choose name</option>
                   {users.map((user) => (
-                    <option value={user.launchpadName}>{user.fullName}</option>
+                    <option key={user.id} value={user.id}>{user.fullName}</option>
                   ))}
                   </select>
               </label>
             </div>
             <div>
-              <label>Quick Thanks</label>
-              <textarea id="content"> </textarea>
+              <label>Content</label>
+              <textarea id="content" name="content" value={newData.content} onChange={handleChange}> </textarea>
             </div>
           </form>
         </Modal>

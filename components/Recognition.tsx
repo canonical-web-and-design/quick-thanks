@@ -9,9 +9,8 @@ type User = {
 
 export type RecognitionProps = {
   id?: number;
-  title: string;
-  author: User | null;
-  recipient: User;
+  authorId: User | null | number
+  recipientId: User | number;
   content: string;
   published: boolean;
 };
@@ -19,12 +18,12 @@ export type RecognitionProps = {
 const Recognition: React.FC<{ recognition: RecognitionProps }> = ({
   recognition,
 }) => {
-  const authorName = recognition?.author?.fullName || "";
+//   const authorName = recognition?.author?.fullName || "";
 
   return (
     <div className="p-card">
-      <small>From {authorName}</small>
-      <h2>{recognition.title}</h2>
+      {/* <small>From {authorName}</small> */}
+      {/* <h2>{recognition.title}</h2> */}
       <ReactMarkdown children={recognition.content} />
       <style jsx>{`
         div {
