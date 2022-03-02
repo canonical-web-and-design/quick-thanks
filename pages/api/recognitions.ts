@@ -6,9 +6,9 @@ export default async function postRecognition(req, res) {
 
   // const session = await getSession({ req });
 
-  const recognition = await prisma.recognition.create({
-    data: data,
-  });
+  // const recognition = await prisma.recognition.create({
+  //   data: data,
+  // });
 
-  res.json(recognition);
+  // res.json(recognition);
 }
