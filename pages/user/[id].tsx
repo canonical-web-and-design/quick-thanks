@@ -40,6 +40,10 @@ const Recognitions: React.FC<Props> = (props) => {
         </div>
         <Row>
           <Col size={2}>
+            <h3 className="p-heading--5">Received</h3>
+            <p className="p-heading--4">{props.feed.length}</p>
+          </Col>
+          <Col size={2}>
             <h3 className="p-heading--5">Villager Points</h3>
             <p className="p-heading--4">23</p>
           </Col>
@@ -49,20 +53,16 @@ const Recognitions: React.FC<Props> = (props) => {
           </Col>
         </Row>
       </section>
-      <section>
-        <div className="u-fixed-width" style={{ display: "flex" }}>
-          {props.feed.length > 0
-            ? props.feed.map((recognition) => (
-                <div
-                  key={recognition.id}
-                  className="post"
-                  style={{ width: "300px", margin: "10px" }}
-                >
+      <section className="p-strip">
+        {props.feed.length > 0
+          ? props.feed.map((recognition) => (
+              <Row>
+                <Col size={12}>
                   <Recognition recognition={recognition} />
-                </div>
-              ))
-            : "No recognitions yet"}
-        </div>
+                </Col>
+              </Row>
+            ))
+          : "No recognitions yet"}
       </section>
     </>
   );
