@@ -8,7 +8,7 @@ type Props = {
 const Layout: React.FC<Props> = (props) => (
   <div>
     <Header />
-    <div className="layout">{props.children}</div>
+    {props.children}
     <style jsx global>{`
       html {
         box-sizing: border-box;

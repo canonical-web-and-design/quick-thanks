@@ -22,8 +22,7 @@ const Recognition: React.FC<{ recognition: RecognitionProps }> = ({
   const authorName = recognition?.author?.fullName || "";
 
   return (
-    <div className="p-card">
-      <small></small>
+    <div>
       <blockquote className="p-pull-quote">
         <p className="p-pull-quote__quote">
           <ReactMarkdown children={recognition.content} />
