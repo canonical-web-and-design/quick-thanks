@@ -36,20 +36,35 @@ const Recognitions: React.FC<Props> = (props) => {
     <>
       <section className="p-strip--suru">
         <div className="u-fixed-width">
-          <h1>Quick Thanks for {props.user?.fullName}</h1>
+          <h1 className="p-heading--3">
+            Quick thanks for <br />
+            <span className="p-heading--1">{props.user?.fullName}</span>
+          </h1>
         </div>
         <Row>
           <Col size={2}>
-            <h3 className="p-heading--5">Received</h3>
-            <p className="p-heading--4">{props.feed.length}</p>
+            <h3 className="p-heading--5">
+              Received <br />
+              <span className="p-heading--2">{props.feed.length}</span>
+            </h3>
           </Col>
           <Col size={2}>
-            <h3 className="p-heading--5">Villager Points</h3>
-            <p className="p-heading--4">23</p>
+            <h3 className="p-heading--5">
+              Villager Points <br />
+              <span className="p-heading--2">
+                {props.user?.receivedVillagerPoints}
+              </span>
+            </h3>
+            {/* outstanding teammate supporting others */}
           </Col>
           <Col size={2}>
-            <h3 className="p-heading--5">Explorer Points</h3>
-            <p className="p-heading--4">60</p>
+            <h3 className="p-heading--5">
+              Explorer Points <br />
+              <span className="p-heading--2">
+                {props.user?.receivedExplorerPoints}
+              </span>
+            </h3>
+            {/* brilliant ideas, innovation */}
           </Col>
         </Row>
       </section>
