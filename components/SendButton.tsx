@@ -11,9 +11,12 @@ const SendButton = ({ users }) => {
   }
   const [newData, setNewData] = useState<Partial<RecognitionProps>>(initialValue);
   const [modalOpen, setModalOpen] = useState(false);
-
+  const [count, setCount] = useState(0);
   const closeHandler = () => setModalOpen(false);
-
+  const handleTextarea = (e: any) => {
+    setNewData({...newData, content : e.target.value })
+    setCount(e.target.value.length);
+}
   const handleSendButton =  async () => {
     try {
       if( newData.authorId === -1 || newData.recipientId === -1 || newData.content.length < 1 ){
@@ -66,7 +69,7 @@ const SendButton = ({ users }) => {
             <div>
               <label>
                 From
-                <select  onChange={handleAuthorChange} name="authorId">
+                <select onChange={handleAuthorChange} name="authorId">
                   <option value="">choose name</option>
                   {users.map((user) => (
                     <option key={user.id} value={user.id}>{user.fullName}</option>
@@ -84,8 +87,29 @@ const SendButton = ({ users }) => {
               </label>
             </div>
             <div>
-              <label>Content</label>
-              <textarea id="content" name="content" value={newData.content} onChange={handleChange}> </textarea>
+              <label>
+              Point options
+              <select  onChange={handleChange} name="points">
+                <option value="">Choose points</option>
+                <option value="villager">Villager Points</option>
+                <option value="explorer">Explorer Points</option>
+              </select>
+              </label>
+              <label>
+              Points
+              <select  onChange={handleChange} name="points">
+                <option value="">Choose points</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+              </label>
+            </div>
+            <div>
+              <label>Content <span style={{"color": "grey"}}>( {count}</span> / 500 )</label>
+              <textarea id="content" name="content" value={newData.content} onChange={handleTextarea} maxLength={500}></textarea>
             </div>
           </form>
         </Modal>
