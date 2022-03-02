@@ -1,11 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { signOut, useSession } from "next-auth/react";
 
 const Header: React.FC = () => {
   const router = useRouter();
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
+
+  const { data: session, status } = useSession();
 
   let left = (
     <div className="left">
@@ -77,6 +80,19 @@ const Header: React.FC = () => {
             </li>
           </ul>
         </nav>
+        <ul className="p-navigation__items">
+          <li className="p-navigation__item">
+            {session ? (
+              <a className="p-navigation__link" onClick={() => signOut()}>
+                Log out ({session.user.name})
+              </a>
+            ) : (
+              <a className="p-navigation__link" href="/api/auth/signin">
+                Log in
+              </a>
+            )}
+          </li>
+        </ul>
       </div>
     </header>
   );
