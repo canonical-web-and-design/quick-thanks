@@ -6,6 +6,6 @@ How to get this running
 
 2. add the following to .env: `DATABASE_URL="postgresql://postgres:postgres@localhost:5432/mydb?schema=public"`
 
-3. Run `npx db push`
+3. Run `npx prisma db push`
 
 4. Run `npx prisma studio` and add some users and recognitions via the UI.
