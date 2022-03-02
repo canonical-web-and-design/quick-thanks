@@ -2,10 +2,11 @@ import { AppProps } from "next/app";
 import React from "react";
 import Layout from "../components/Layout";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <>
+    <SessionProvider session={pageProps.session}>
       <Head>
         <title>Canonical Quick Thanks</title>
         <link
@@ -18,7 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
         </div>
       </Layout>
-    </>
+    </SessionProvider>
   );
 };
 
