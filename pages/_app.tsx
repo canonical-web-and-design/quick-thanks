@@ -6,7 +6,7 @@ import { SessionProvider } from "next-auth/react";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <SessionProvider>
+    <SessionProvider session={pageProps.session}>
       <Head>
         <title>Canonical Quick Thanks</title>
         <link
