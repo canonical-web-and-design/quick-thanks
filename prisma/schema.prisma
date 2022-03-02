@@ -16,6 +16,10 @@ model User {
   fullName             String
   receivedRecognitions Recognition[] @relation(name: "author")
   givenRecognitions    Recognition[] @relation(name: "recipient")
+  receivedVillagerPoints Int @default(0)
+  receivedExplorerPoints Int @default(0)
+  remainingVillagerPointsToGive Int @default(5)
+  remainingExplorerPointsToGive Int @default(5)
 }
 
 model Recognition {
