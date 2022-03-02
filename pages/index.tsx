@@ -1,31 +1,34 @@
-import React from "react"
-import { GetStaticProps } from "next"
-import SendButton from "../components/SendButton"
-import prisma from '../lib/prisma'
-import Link from 'next/link'
+import React from "react";
+import { GetStaticProps } from "next";
+import SendButton from "../components/SendButton";
+import prisma from "../lib/prisma";
+import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 export const getStaticProps: GetStaticProps = async () => {
-    const feed = await prisma.recognition.findMany({
-      where: { published: true },
-      include: {
-        recipient: {
-          select: { fullName: true },
-        },
-        author: {
-          select: { fullName: true }
-        }
+  const feed = await prisma.recognition.findMany({
+    where: { published: true },
+    include: {
+      recipient: {
+        select: { fullName: true },
       },
-    });
-    const users = await prisma.user.findMany();
+      author: {
+        select: { fullName: true },
+      },
+    },
+  });
+  const users = await prisma.user.findMany();
 
-    return { props: { feed, users } };
-}
+  return { props: { feed, users } };
+};
 
 type Props = {
-  users: any[]
-}
+  users: any[];
+};
 
 const Index: React.FC<Props> = (props) => {
+  const { data: session, status } = useSession();
+  console.log(session);
   return (
     <section>
       <div className="p-strip--suru">
@@ -49,6 +52,6 @@ const Index: React.FC<Props> = (props) => {
       </div>
     </section>
   );
-}
+};
 
-export default Index
+export default Index;
