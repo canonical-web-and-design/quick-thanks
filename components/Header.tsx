@@ -39,17 +39,46 @@ const Header: React.FC = () => {
   let right = null;
 
   return (
-    <nav>
-      {left}
-      {right}
-      <style jsx>{`
-        nav {
-          display: flex;
-          padding: 2rem;
-          align-items: center;
-        }
-      `}</style>
-    </nav>
+    <header id="navigation" className="p-navigation">
+      <div className="p-navigation__row">
+        <div className="p-navigation__banner">
+          <div className="p-navigation__logo">
+            <li className="p-navigation__item">
+              <img
+                className="p-navigation__image"
+                src="https://assets.ubuntu.com/v1/5d6da5c4-logo-canonical-aubergine.svg"
+                alt="Canonical"
+                width="95"
+              />
+            </li>
+          </div>
+          <a
+            href="#navigation"
+            className="p-navigation__toggle--open"
+            title="menu"
+          >
+            Menu
+          </a>
+          <a
+            href="#navigation-closed"
+            className="p-navigation__toggle--close"
+            title="close menu"
+          >
+            Close menu
+          </a>
+        </div>
+
+        <nav className="p-navigation__nav" aria-label="Example main navigation">
+          <ul className="p-navigation__items">
+            <li className="p-navigation__item is-selected">
+              <a className="p-navigation__link" href="/">
+                Quick Thanks
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
   );
 };
 

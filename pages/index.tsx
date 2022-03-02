@@ -25,13 +25,18 @@ type Props = {
   users: any[]
 }
 
-const Blog: React.FC<Props> = (props) => {
+const Index: React.FC<Props> = (props) => {
   return (
-    <>
-      <h1>Canonical Quick Thanks</h1>
-      <main>
-        <div>
+    <section>
+      <div className="p-strip--suru">
+        <div className="u-fixed-width">
+          <h1>Quick Thanks</h1>
+          <br />
           <SendButton users={props.users} />
+        </div>
+      </div>
+      <div className="p-strip">
+        <div className="u-fixed-width">
           <h2>Users</h2>
           <ul>
             {props.users.map((user) => (
@@ -41,9 +46,9 @@ const Blog: React.FC<Props> = (props) => {
             ))}
           </ul>
         </div>
-      </main>
-    </>
+      </div>
+    </section>
   );
 }
 
-export default Blog
+export default Index

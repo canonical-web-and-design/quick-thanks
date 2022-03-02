@@ -2,6 +2,7 @@ import React from "react";
 import { GetServerSideProps } from "next";
 import Recognition from "../../components/Recognition";
 import prisma from "../../lib/prisma";
+import { Row, Col } from "@canonical/react-components";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const feed = await prisma.recognition.findMany({
@@ -33,18 +34,36 @@ type Props = {
 const Recognitions: React.FC<Props> = (props) => {
   return (
     <>
-      <h2>Quick Thanks for {props.user?.fullName}</h2>
-      <div style={{ display: "flex" }}>
-        {props.feed.length > 0 ? props.feed.map((recognition) => (
-          <div
-            key={recognition.id}
-            className="post"
-            style={{ width: "300px", margin: "10px" }}
-          >
-            <Recognition recognition={recognition} />
-          </div>
-        )) : "No recognitions yet"}
-      </div>
+      <section className="p-strip--suru">
+        <div className="u-fixed-width">
+          <h1>Quick Thanks for {props.user?.fullName}</h1>
+        </div>
+        <Row>
+          <Col size={2}>
+            <h3 className="p-heading--5">Villager Points</h3>
+            <p className="p-heading--4">23</p>
+          </Col>
+          <Col size={2}>
+            <h3 className="p-heading--5">Explorer Points</h3>
+            <p className="p-heading--4">60</p>
+          </Col>
+        </Row>
+      </section>
+      <section>
+        <div className="u-fixed-width" style={{ display: "flex" }}>
+          {props.feed.length > 0
+            ? props.feed.map((recognition) => (
+                <div
+                  key={recognition.id}
+                  className="post"
+                  style={{ width: "300px", margin: "10px" }}
+                >
+                  <Recognition recognition={recognition} />
+                </div>
+              ))
+            : "No recognitions yet"}
+        </div>
+      </section>
     </>
   );
 };

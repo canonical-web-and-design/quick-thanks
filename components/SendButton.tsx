@@ -32,7 +32,9 @@ const SendButton = ({ users }) => {
 
   return (
     <>
-      <button onClick={() => setModalOpen(true)}>Send Quick Thanks</button>
+      <button className="p-button is-dark" onClick={() => setModalOpen(true)}>
+        Send Quick Thanks
+      </button>
       {modalOpen ? (
         <Modal
           close={closeHandler}
@@ -66,7 +68,7 @@ const SendButton = ({ users }) => {
                   {users.map((user) => (
                     <option value={user.launchpadName}>{user.fullName}</option>
                   ))}
-                  </select>
+                </select>
               </label>
             </div>
             <div>
