@@ -3,6 +3,7 @@ import { GetServerSideProps } from "next";
 import Recognition from "../../components/Recognition";
 import prisma from "../../lib/prisma";
 import { Row, Col } from "@canonical/react-components";
+import { AnimatePresence, motion } from "framer-motion";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const feed = await prisma.recognition.findMany({
@@ -31,6 +32,39 @@ type Props = {
   user: any
 };
 
+const Points = ({
+  name,
+  value,
+  transitionDelay,
+}: {
+  name: string;
+  value: number;
+  transitionDelay?: number;
+}) => {
+  return (
+    <>
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: transitionDelay || 0 }}
+          exit={{ opacity: 0 }}
+        >
+          <h3 className="p-heading--5">{name}</h3>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: transitionDelay || 0 }}
+          exit={{ opacity: 0 }}
+        >
+          <span className="p-heading--2">{value}</span>
+        </motion.div>
+      </AnimatePresence>
+    </>
+  );
+};
+
 const Recognitions: React.FC<Props> = (props) => {
   return (
     <>
@@ -43,27 +77,23 @@ const Recognitions: React.FC<Props> = (props) => {
         </div>
         <Row>
           <Col size={2}>
-            <h3 className="p-heading--5">
-              Received <br />
-              <span className="p-heading--2">{props.feed.length}</span>
-            </h3>
+            <Points name="Received" value={props.feed.length} />
           </Col>
+
           <Col size={2}>
-            <h3 className="p-heading--5">
-              Villager Points <br />
-              <span className="p-heading--2">
-                {props.user?.receivedVillagerPoints}
-              </span>
-            </h3>
+            <Points
+              name="Villager Points"
+              value={props.user?.receivedVillagerPoints}
+              transitionDelay={0.25}
+            />
             {/* outstanding teammate supporting others */}
           </Col>
           <Col size={2}>
-            <h3 className="p-heading--5">
-              Explorer Points <br />
-              <span className="p-heading--2">
-                {props.user?.receivedExplorerPoints}
-              </span>
-            </h3>
+            <Points
+              name="Explorer Points"
+              value={props.user?.receivedExplorerPoints}
+              transitionDelay={0.5}
+            />
             {/* brilliant ideas, innovation */}
           </Col>
         </Row>
