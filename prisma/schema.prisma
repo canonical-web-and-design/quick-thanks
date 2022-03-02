@@ -12,14 +12,18 @@ datasource db {
 
 model User {
   id                            Int           @id @default(autoincrement())
-  launchpadName                 String        @unique
-  fullName                      String
+  launchpadName                 String?       @unique
+  fullName                      String?
   receivedRecognitions          Recognition[] @relation(name: "author")
   givenRecognitions             Recognition[] @relation(name: "recipient")
   receivedVillagerPoints        Int           @default(0)
   receivedExplorerPoints        Int           @default(0)
   remainingVillagerPointsToGive Int           @default(5)
   remainingExplorerPointsToGive Int           @default(5)
+  email                         String?       @unique
+  emailVerified                 DateTime?     @map("email_verified")
+  name                          String?
+  image                         String?
   Account                       Account[]
   Session                       Session[]
 }
