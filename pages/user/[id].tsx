@@ -5,6 +5,7 @@ import prisma from "../../lib/prisma";
 import { Row, Col } from "@canonical/react-components";
 import { AnimatePresence, motion } from "framer-motion";
 import User from "./User";
+import { useSession } from "next-auth/react";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const receivedRecognitions = await prisma.recognition.findMany({
@@ -70,56 +71,11 @@ const Points = ({
   );
 };
 
-const Recognitions: React.FC<Props> = (props) => {
-  return (
-    <>
-      <section className="p-strip--suru">
-        <div className="u-fixed-width">
-          <h1 className="p-heading--3">
-            Quick thanks for <br />
-            <span className="p-heading--1">{props.user?.name}</span>
-          </h1>
-        </div>
-        <Row>
-          <Col size={2}>
-            <Points name="Received" value={props.feed.length} />
-          </Col>
+const UserPage = (props) => {
+  const { data: session } = useSession();
 
-          <Col size={2}>
-            <Points
-              name="Villager Points"
-              value={props.user?.receivedVillagerPoints}
-              transitionDelay={0.25}
-            />
-            {/* outstanding teammate supporting others */}
-          </Col>
-          <Col size={2}>
-            <Points
-              name="Explorer Points"
-              value={props.user?.receivedExplorerPoints}
-              transitionDelay={0.5}
-            />
-            {/* brilliant ideas, innovation */}
-          </Col>
-        </Row>
-      </section>
-      <section className="p-strip">
-        {props.feed.length > 0
-          ? props.feed.map((recognition) => (
-              <Row>
-                <Col size={12}>
-                  <Recognition recognition={recognition} />
-                </Col>
-              </Row>
-            ))
-          : "No recognitions yet"}
-      </section>
-    </>
-  );
+  return session ? (<User {...props} session={session} />) : null;
 };
-
-const UserPage = (props) => <User {...props} />;
 
 export default UserPage;
 
-// export default Recognitions;
