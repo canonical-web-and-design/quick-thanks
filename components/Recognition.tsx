@@ -12,6 +12,10 @@ export type RecognitionProps = {
   recipientId: User | number;
   content: string;
   published: boolean;
+  receivedExplorerPoints: number,
+  receivedVillagerPoints: number,
+  remainingExplorerPointsToGive: number,
+  remainingVillagerPointsToGive: number,
 };
 
 const Recognition: React.FC<{ recognition: RecognitionProps }> = ({

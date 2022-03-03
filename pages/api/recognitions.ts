@@ -13,11 +13,6 @@ async function postRecognition (req, res) {
   }
 }
 
-async function GetUser(){
-  const user= await prisma.user.findMany()
-  return user
-}
-
 async function updateUser(req, res){
   const updatedData = req.body
   if(req.method !== 'PATCH'){
@@ -28,8 +23,8 @@ async function updateUser(req, res){
           id:updatedData.id
       },
       data:{
-        receivedVillagerPoints : updatedData.receivedVillagerPoints,
-        receivedExplorerPoints : updatedData.receivedExplorerPoints,
+        // receivedVillagerPoints : updatedData.receivedVillagerPoints,
+        // receivedExplorerPoints : updatedData.receivedExplorerPoints,
         remainingVillagerPointsToGive : updatedData.remainingVillagerPointsToGive,
         remainingExplorerPointsToGive : updatedData.remainingExplorerPointsToGive
       }
@@ -37,5 +32,7 @@ async function updateUser(req, res){
   res.status(200).json({message: 'User updated successfully.', user: userUpdate })
 }
 
-export default function postRecognitionAndUpdateUserPoints() {
+export default function postRecognitionAndUpdateUserPoints(res,req) {
+  postRecognition(res,req)
+  updateUser(res,req)
 }
