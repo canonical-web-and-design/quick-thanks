@@ -13,7 +13,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
   });
 
-  console.log(receivedRecognitions, "<--");
+  const givenRecognitions = await prisma.recognition.findMany({
+    where: {
+      authorId: Number(params?.id) || -1,
+    },
+  });
 
   const users = await prisma.user.findMany();
   const user = await prisma.user.findUnique({
@@ -21,7 +25,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   });
 
   return {
-    props: { receivedRecognitions, user, users },
+    props: { receivedRecognitions, givenRecognitions, user, users },
   };
 };
 
