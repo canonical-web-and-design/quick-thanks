@@ -13,17 +13,19 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
     include: {
       recipient: {
-        select: { fullName: true },
+        select: { name: true },
       },
       author: {
-        select: { fullName: true },
+        select: { name: true },
       },
     },
   });
 
   const users = await prisma.user.findMany();
-  const user = await prisma.user.findUnique({ where: { id:Number(params?.id) || -1 }})
-  
+  const user = await prisma.user.findUnique({
+    where: { id: Number(params?.id) || -1 },
+  });
+
   return {
     props: { receivedRecognitions, user, users },
   };
@@ -31,8 +33,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
 type Props = {
   userId: number;
-  feed: any
-  user: any
+  feed: any;
+  user: any;
 };
 
 const Points = ({
@@ -75,7 +77,7 @@ const Recognitions: React.FC<Props> = (props) => {
         <div className="u-fixed-width">
           <h1 className="p-heading--3">
             Quick thanks for <br />
-            <span className="p-heading--1">{props.user?.fullName}</span>
+            <span className="p-heading--1">{props.user?.name}</span>
           </h1>
         </div>
         <Row>
@@ -116,7 +118,7 @@ const Recognitions: React.FC<Props> = (props) => {
   );
 };
 
-const UserPage = props => <User {...props} />
+const UserPage = (props) => <User {...props} />;
 
 export default UserPage;
 
