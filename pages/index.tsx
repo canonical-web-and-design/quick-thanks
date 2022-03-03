@@ -23,9 +23,12 @@ const Index: React.FC<Props> = (props) => {
         <div className="u-fixed-width">
           <h1>Quick Thanks</h1>
           <br />
+          {!session ? <a className="p-button--brand" href="/api/auth/signin">
+            Log in
+          </a> : null}
         </div>
       </div>
-      <div className="p-strip">
+      {props.users.length > 0 ? <div className="p-strip">
         <div className="u-fixed-width">
           <h2>Users</h2>
           <ul>
@@ -38,7 +41,7 @@ const Index: React.FC<Props> = (props) => {
             ))}
           </ul>
         </div>
-      </div>
+      </div> : null}
     </section>
   );
 };
