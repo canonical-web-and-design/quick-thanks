@@ -32,7 +32,7 @@ const PreviousThanks = (props) => {
           justifyContent: "space-between",
         }}
       >
-        {props.receivedRecognitions.length > 0
+        {props.receivedRecognitions?.length > 0
           ? props.receivedRecognitions.map((recognition) => <Card recognition={recognition} />)
           : "No recognitions yet"}
       </div>

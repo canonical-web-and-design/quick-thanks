@@ -15,9 +15,12 @@ const Index: React.FC<Props> = (props) => {
   const router = useRouter();
 
   React.useEffect(() => {
+    // @ts-ignore-next-line
     if (session?.user?.id) {
+      // @ts-ignore-next-line
       router.push(`/user/${session?.user?.id}`);
     }
+    // @ts-ignore-next-line
   }, [session?.user?.id]);
 
   return (<section>

@@ -11,14 +11,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     where: {
       recipientId: Number(params?.id) || -1,
     },
-    include: {
-      recipient: {
-        select: { name: true },
-      },
-      author: {
-        select: { name: true },
-      },
-    },
   });
 
   const users = await prisma.user.findMany();
