@@ -1,11 +1,10 @@
 import React from "react";
 import { GetServerSideProps } from "next";
-import Recognition from "../../components/Recognition";
 import prisma from "../../lib/prisma";
-import { Row, Col } from "@canonical/react-components";
 import { AnimatePresence, motion } from "framer-motion";
 import User from "./User";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const receivedRecognitions = await prisma.recognition.findMany({
@@ -73,6 +72,14 @@ const Points = ({
 
 const UserPage = (props) => {
   const { data: session, status } = useSession();
+
+  const router = useRouter();
+
+  React.useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
+  }, [status]);
 
 
   return status === "authenticated" ? (
