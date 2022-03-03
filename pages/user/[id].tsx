@@ -72,9 +72,12 @@ const Points = ({
 };
 
 const UserPage = (props) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  return session ? (<User {...props} session={session} />) : null;
+
+  return status === "authenticated" ? (
+    <User {...props} session={session} />
+  ) : null;
 };
 
 export default UserPage;

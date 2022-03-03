@@ -28,7 +28,7 @@ const Index: React.FC<Props> = (props) => {
           </a> : null}
         </div>
       </div>
-      {props.users.length > 0 ? <div className="p-strip">
+      {props.users?.length > 0 ? <div className="p-strip">
         <div className="u-fixed-width">
           <h2>Users</h2>
           <ul>

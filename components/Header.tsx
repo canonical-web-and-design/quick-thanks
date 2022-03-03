@@ -82,7 +82,7 @@ const Header: React.FC = () => {
         </nav>
         <ul className="p-navigation__items">
           <li className="p-navigation__item">
-            {session ? (
+            {status === 'authenticated' ? (
               <a className="p-navigation__link" onClick={() => signOut()}>
                 Log out ({session.user.name})
               </a>

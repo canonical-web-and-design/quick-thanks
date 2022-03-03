@@ -2,9 +2,8 @@ import { useState } from "react";
 import { Modal } from "@canonical/react-components";
 import { RecognitionProps } from "./Recognition";
 
-const SendButton = ({ users }) => {
+const SendButton = ({ users, session }) => {
   const initialValue = {
-    authorId: -1,
     recipientId: -1,
     content: "",
     published: true,
@@ -21,7 +20,6 @@ const SendButton = ({ users }) => {
   const handleSendButton = async () => {
     try {
       if (
-        newData.authorId === -1 ||
         newData.recipientId === -1 ||
         newData.content.length < 1
       ) {
@@ -30,7 +28,7 @@ const SendButton = ({ users }) => {
       }
       const res = await fetch("api/recognitions", {
         method: "POST",
-        body: JSON.stringify(newData),
+        body: JSON.stringify({ authorId: session.user.id, ...newData }),
       });
       const status = await res.status;
       if (status === 200) {
@@ -77,17 +75,6 @@ const SendButton = ({ users }) => {
         >
           <form>
             <div>
-              <label>
-                From
-                <select onChange={handleAuthorChange} name="authorId">
-                  <option value="">choose name</option>
-                  {users.map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
               <label>
                 To
                 <select onChange={handleAuthorChange} name="recipientId">
