@@ -30,7 +30,7 @@ const CardList = ({ recognitions, users }) => {
 
 const PreviousThanks = (props) => {
   const [activeTab, setActiveTab] = React.useState<
-    "Thanks received" | "Thanks spent"
+    "Thanks received" | "Thanks sent"
   >("Thanks received");
 
   return (
@@ -43,9 +43,9 @@ const PreviousThanks = (props) => {
             onClick: () => setActiveTab("Thanks received"),
           },
           {
-            active: activeTab === "Thanks spent",
-            label: "Thanks spent",
-            onClick: () => setActiveTab("Thanks spent"),
+            active: activeTab === "Thanks sent",
+            label: "Thanks sent",
+            onClick: () => setActiveTab("Thanks sent"),
           },
         ]}
       />
