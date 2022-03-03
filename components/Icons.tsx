@@ -6,15 +6,15 @@ const IconWrapper = ({children}) => <span style={{ position: "relative", top: ".
 export const ExplorerIcon = ({ color = "#321" }) => (
   <IconWrapper>
     <svg viewBox="0 0 40 37" height="1.5rem" fill="none" stroke={color}>
-      <path stroke-width="4" d="m19,2.5a16,16 0 1,0 2,0z" />
-      <path stroke-width="2" d="m20,2.5v4m0,24v4M4,18.5h4m24,0h4" />
+      <path strokeWidth="4" d="m19,2.5a16,16 0 1,0 2,0z" />
+      <path strokeWidth="2" d="m20,2.5v4m0,24v4M4,18.5h4m24,0h4" />
       <path d="m18,16.5 9-5-5,9-9,5z" />
       <path stroke="none" fill={color} d="m18,16.5 9-5-5,9z" />
     </svg>
   </IconWrapper>
 );
 
-export const VillagerIcon = ({ color }) => (
+export const VillagerIcon = ({ color = "#321" }) => (
   <IconWrapper>
     <svg height="1.5rem" viewBox="0 0 512.004 512.004" fill={color}>
       <g>
