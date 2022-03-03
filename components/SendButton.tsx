@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal } from "@canonical/react-components";
 import { RecognitionProps } from "./Recognition";
+import { isNumber } from "util";
 
 const SendButton = ({ users }) => {
   const initialValue = {
@@ -14,6 +15,7 @@ const SendButton = ({ users }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [count, setCount] = useState(0);
   const closeHandler = () => setModalOpen(false);
+  
   const handleTextarea = (e: any) => {
     setNewData({ ...newData, content: e.target.value });
     setCount(e.target.value.length);
