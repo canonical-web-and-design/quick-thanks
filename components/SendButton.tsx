@@ -46,13 +46,13 @@ const SendButton = ({ users }) => {
 
   return (
     <>
-      <button className="p-button is-dark" onClick={() => setModalOpen(true)}>
-        Send Quick Thanks
+      <button className="p-button--brand" onClick={() => setModalOpen(true)}>
+        Send Thanks
       </button>
       {modalOpen ? (
         <Modal
           close={closeHandler}
-          title="Send Quick Thanks"
+          title="Send Thanks"
           buttonRow={
             <>
               <button className="u-no-margin--bottom" onClick={handleSendButton}>Send</button>

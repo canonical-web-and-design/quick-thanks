@@ -11,4 +11,3 @@ How to get this running
 4. Run `npx prisma studio` and add some users and recognitions via the UI.
 
 5. Run `npm run dev`
-
