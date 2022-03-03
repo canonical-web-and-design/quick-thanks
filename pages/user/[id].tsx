@@ -4,9 +4,10 @@ import Recognition from "../../components/Recognition";
 import prisma from "../../lib/prisma";
 import { Row, Col } from "@canonical/react-components";
 import { AnimatePresence, motion } from "framer-motion";
+import User from "./User";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const feed = await prisma.recognition.findMany({
+  const receivedRecognitions = await prisma.recognition.findMany({
     where: {
       recipientId: Number(params?.id) || -1,
     },
@@ -19,10 +20,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       },
     },
   });
-  const user = await prisma.user.findUnique({ where: { id:Number(params?.id) || -1 }})
 
+  const users = await prisma.user.findMany();
+  const user = await prisma.user.findUnique({ where: { id:Number(params?.id) || -1 }})
+  
   return {
-    props: { feed, user },
+    props: { receivedRecognitions, user, users },
   };
 };
 
@@ -113,4 +116,8 @@ const Recognitions: React.FC<Props> = (props) => {
   );
 };
 
-export default Recognitions;
+const UserPage = props => <User {...props} />
+
+export default UserPage;
+
+// export default Recognitions;

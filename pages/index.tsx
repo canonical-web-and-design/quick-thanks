@@ -6,20 +6,9 @@ import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.recognition.findMany({
-    where: { published: true },
-    include: {
-      recipient: {
-        select: { fullName: true },
-      },
-      author: {
-        select: { fullName: true },
-      },
-    },
-  });
   const users = await prisma.user.findMany();
 
-  return { props: { feed, users } };
+  return { props: { users } };
 };
 
 type Props = {
@@ -34,7 +23,6 @@ const Index: React.FC<Props> = (props) => {
         <div className="u-fixed-width">
           <h1>Quick Thanks</h1>
           <br />
-          <SendButton users={props.users} />
         </div>
       </div>
       <div className="p-strip">
