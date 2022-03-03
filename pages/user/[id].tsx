@@ -13,6 +13,8 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
   });
 
+  console.log(receivedRecognitions, "<--");
+
   const users = await prisma.user.findMany();
   const user = await prisma.user.findUnique({
     where: { id: Number(params?.id) || -1 },
@@ -73,11 +75,9 @@ const UserPage = (props) => {
     }
   }, [status]);
 
-
   return status === "authenticated" ? (
     <User {...props} session={session} />
   ) : null;
 };
 
 export default UserPage;
-

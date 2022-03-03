@@ -8,22 +8,24 @@ type User = {
 export type RecognitionProps = {
   id?: number;
   author: User;
-  authorId: User | null | number
+  authorId: User | null | number;
   recipientId: User | number;
   content: string;
   published: boolean;
 };
 
-const Recognition: React.FC<{ recognition: RecognitionProps }> = ({
-  recognition,
-}) => {
+const Recognition: React.FC<{
+  recognition: RecognitionProps;
+  author: string;
+}> = ({ recognition, author }) => {
+  console.log(author);
   const authorName = recognition?.author?.fullName || "";
 
   return (
     <div className="p-card" style={{ height: "12rem" }}>
       <blockquote className="p-pull-quote">
         <p className="p-pull-quote__quote">{recognition.content}</p>
-        <cite className="p-pull-quote__citation">From {authorName}</cite>
+        <cite className="p-pull-quote__citation">From {author}</cite>
       </blockquote>
     </div>
   );

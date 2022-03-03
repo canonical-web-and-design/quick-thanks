@@ -16,8 +16,8 @@ model User {
   emailVerified                 DateTime?     @map("email_verified")
   name                          String?
   image                         String?
-  receivedRecognitions          Recognition[] @relation(name: "author")
-  givenRecognitions             Recognition[] @relation(name: "recipient")
+  receivedRecognitions          Recognition[] @relation(name: "recipient")
+  givenRecognitions             Recognition[] @relation(name: "author")
   receivedVillagerPoints        Int           @default(0)
   receivedExplorerPoints        Int           @default(0)
   remainingVillagerPointsToGive Int           @default(5)
