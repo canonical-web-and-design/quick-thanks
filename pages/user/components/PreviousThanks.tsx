@@ -1,7 +1,8 @@
 import React from "react";
 import { Tabs } from "@canonical/react-components";
-import Recognition from "../../../components/Recognition";
-import UserSummary from "./UserSummary";
+import { Prisma } from "@prisma/client";
+import Recognition, { RecognitionProps } from "../../../components/Recognition";
+import { RecognitionVariant } from "../../../lib/types";
 
 const Card = (props) => (
   <div style={{ flex: "0.2", marginRight: "1.5rem" }}>
@@ -9,43 +10,50 @@ const Card = (props) => (
   </div>
 );
 
-const CardList = ({ recognitions, users }) => {
-  const getAuthorName = (authorId) => {
+type CardListProps = {
+  variant: RecognitionVariant;
+  recognitions: RecognitionProps[];
+  users: Prisma.UserSelect[];
+};
+
+const CardList: React.FC<CardListProps> = ({ recognitions, users, variant }) => {
+  const getUserName = (authorId) => {
     const user = users.find((user) => user.id === authorId);
     return user.name;
   };
 
-  return recognitions?.length > 0 ? (
+  return <>{recognitions?.length > 0 ? (
     recognitions.map((recognition) => (
       <Card
         key={recognition.id}
         recognition={recognition}
-        author={getAuthorName(recognition.authorId)}
+        variant={variant}
+        author={getUserName(recognition.authorId)}
+        recipient={getUserName(recognition.recipientId)}
       />
     ))
   ) : (
     <p>No recognitions yet</p>
-  );
+  )}</>;
 };
 
 const PreviousThanks = (props) => {
-  const [activeTab, setActiveTab] = React.useState<
-    "Thanks received" | "Thanks sent"
-  >("Thanks received");
+  const [activeTab, setActiveTab] =
+    React.useState<RecognitionVariant>("received");
 
   return (
     <div>
       <Tabs
         links={[
           {
-            active: activeTab === "Thanks received",
+            active: activeTab === "received",
             label: "Thanks received",
-            onClick: () => setActiveTab("Thanks received"),
+            onClick: () => setActiveTab("received"),
           },
           {
-            active: activeTab === "Thanks sent",
+            active: activeTab === "sent",
             label: "Thanks sent",
-            onClick: () => setActiveTab("Thanks sent"),
+            onClick: () => setActiveTab("sent"),
           },
         ]}
       />
@@ -56,13 +64,15 @@ const PreviousThanks = (props) => {
           flexDirection: "row",
         }}
       >
-        {activeTab === "Thanks received" ? (
+        {activeTab === "received" ? (
           <CardList
+            variant="received"
             recognitions={props.receivedRecognitions}
             users={props.users}
           />
         ) : (
           <CardList
+            variant="sent"
             recognitions={props.givenRecognitions}
             users={props.users}
           />

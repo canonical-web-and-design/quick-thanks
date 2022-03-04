@@ -1,4 +1,5 @@
 import React from "react";
+import { RecognitionVariant } from "../lib/types";
 
 type User = {
   id?: number;
@@ -15,14 +16,20 @@ export type RecognitionProps = {
 };
 
 const Recognition: React.FC<{
+  variant: RecognitionVariant;
   recognition: RecognitionProps;
   author: string;
-}> = ({ recognition, author }) => {
+  recipient: string;
+}> = ({ variant, recognition, author, recipient }) => {
   return (
     <div className="p-card--highlighted" style={{ height: "12rem" }}>
       <blockquote className="p-pull-quote">
         <p className="p-pull-quote__quote">{recognition.content}</p>
-        <cite className="p-pull-quote__citation">From {author}</cite>
+        {variant === "sent" ? (
+          <cite className="p-pull-quote__citation">To {recipient}</cite>
+        ) : (
+          <cite className="p-pull-quote__citation">From {author}</cite>
+        )}
       </blockquote>
     </div>
   );

@@ -19,13 +19,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
   });
 
-  const users = await prisma.user.findMany();
-  const user = await prisma.user.findUnique({
-    where: { id: Number(params?.id) || -1 },
-  });
+  const users = await prisma.user
+    .findMany()
+  const user = users.find((u) => u.id === Number(params?.id));
 
   return {
-    props: { receivedRecognitions, givenRecognitions, user, users },
+    props: { receivedRecognitions, givenRecognitions, users, user },
   };
 };
 
