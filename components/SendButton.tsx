@@ -170,7 +170,7 @@ const SendButton = ({ user, users, session }) => {
                             onChange={handlePointChange}
                             name="pointName"
                             value="none"
-                            default
+                            default={true}
                           />
                           <h3 className="p-card__title">Send Quick Thanks</h3>
                           <div className="p-card__content">
@@ -224,44 +224,65 @@ const SendButton = ({ user, users, session }) => {
                 <h5>
                   <span> 30 </span> {points.pointName} points left to award
                 </h5>
-                <div>
-                  <div>
-                    <RadioInput
-                      label=""
-                      onChange={handlePointChange}
-                      name="pointValue"
-                      value={5}
-                    />
-                    <Card title="5">{points.pointName} points</Card>
-                  </div>
-                  <div>
-                    <RadioInput
-                      label=""
-                      onChange={handlePointChange}
-                      name="pointValue"
-                      value={10}
-                    />
-                    <Card title="10">{points.pointName} points</Card>
-                  </div>
-                  <div>
-                    <RadioInput
-                      label=""
-                      onChange={handlePointChange}
-                      name="pointValue"
-                      value={20}
-                    />
-                    <Card title="20">{points.pointName} points</Card>
-                  </div>
-                  <div style={{ margin: "20px" }}>
-                    You'll have 15 {points.pointName} points left to award
-                    before 10th March 2022.
-                  </div>
+                <Row>
+                  <Col size={4}>
+                    <div className="p-card">
+                      <label style={{ width: "16rem", height: "10rem" }}>
+                        <RadioInput
+                          label=""
+                          onChange={handlePointChange}
+                          name="pointValue"
+                          value={5}
+                        />
+                        <h3 className="p-card__title">5</h3>
+                        <div className="p-card__content">
+                        {points.pointName} points
+                        </div>
+                      </label>
+                    </div>
+                  </Col>
+                  <Col size={4}>
+                    <div className="p-card">
+                      <label style={{ width: "16rem", height: "10rem" }}>
+                        <RadioInput
+                          label=""
+                          onChange={handlePointChange}
+                          name="pointValue"
+                          value={10}
+                        />
+                        <h3 className="p-card__title">10</h3>
+                        <div className="p-card__content">
+                        {points.pointName} points
+                        </div>
+                      </label>
+                    </div>
+                  </Col>
+                  <Col size={4}>
+                    <div className="p-card">
+                      <label style={{ width: "16rem", height: "10rem" }}>
+                        <RadioInput
+                          label=""
+                          onChange={handlePointChange}
+                          name="pointValue"
+                          value={15}
+                        />
+                        <h3 className="p-card__title">15</h3>
+                        <div className="p-card__content">
+                        {points.pointName} points
+                        </div>
+                      </label>
+                    </div>  
+                  </Col>
+                </Row>
+                <div style={{ marginBottom: "20px" }}>
+                  You'll have 15 {points.pointName} points left to award
+                  before 10th March 2022.
                 </div>
               </div>
             )}
             {page === 3 && (
               <div>
-                <label>
+                <label style={{ width: "500px"}}>
                   Content <span style={{ color: "grey" }}>( {count}</span> / 500
                   )
                 </label>
