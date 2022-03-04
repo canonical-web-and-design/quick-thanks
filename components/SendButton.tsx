@@ -21,7 +21,7 @@ const SendButton = ({ user, users, session }) => {
   const [newData, setNewData] =
     useState<Partial<RecognitionProps>>(initialValue);
   const [modalOpen, setModalOpen] = useState(false);
-  const closeHandler = () => setModalOpen(false);
+  const closeHandler = () => { setModalOpen(false); setPage(1); setCount(0); setNewData(initialValue); };
 
   const handleTextarea = (e: any) => {
     setNewData({ ...newData, content: e.target.value });
@@ -42,9 +42,7 @@ const SendButton = ({ user, users, session }) => {
       });
       const status = await res.status;
       if (status === 200) {
-        alert("Submitted");
-        setNewData(initialValue);
-        setModalOpen(false);
+        setPage(4);
       }
     } catch (err) {
       console.error(err);
@@ -104,7 +102,7 @@ const SendButton = ({ user, users, session }) => {
           title={handleTitle()}
           buttonRow={
             <>
-              {page !== 1 && (
+              {page !== 1 && page !== 4 && (
                 <Button
                   className="u-no-margin--bottom"
                   onClick={handlePreviousPage}
@@ -112,7 +110,7 @@ const SendButton = ({ user, users, session }) => {
                   Back
                 </Button>
               )}
-              {page !== 3 && (
+              {page < 3 && (
                 <Button
                   className="u-no-margin--bottom"
                   appearance="positive"
@@ -131,10 +129,12 @@ const SendButton = ({ user, users, session }) => {
                 </Button>
               )}
               <button
-                className="p-button--negative u-no-margin--bottom"
+                className={`p-button${
+                  page === 4 ? "" : "--negative"
+                } u-no-margin--bottom`}
                 onClick={closeHandler}
               >
-                Cancel
+                {page === 4 ? "Close" : "Cancel"}
               </button>
             </>
           }
@@ -276,6 +276,12 @@ const SendButton = ({ user, users, session }) => {
               </div>
             )}
           </form>
+          {page === 4 && (
+            <div className="p-strip" style={{ width: "25rem" }}>
+              <h2>Sent</h2>
+              <p>Your card is on it's way.</p>
+            </div>
+          )}
         </Modal>
       ) : null}
     </>
