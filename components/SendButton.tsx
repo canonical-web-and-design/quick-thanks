@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, RadioInput, Card, Button } from "@canonical/react-components";
+import { Modal, RadioInput, Card, Button, Row, Col } from "@canonical/react-components";
 import { RecognitionProps } from "./Recognition";
 
 const SendButton = ({ user, users, session }) => {
@@ -104,15 +104,32 @@ const SendButton = ({ user, users, session }) => {
           title={handleTitle()}
           buttonRow={
             <>
-              {page !== 1 && <Button className="u-no-margin--bottom" onClick={handlePreviousPage}>Back</Button>}
-              {page !== 3 && <Button className="u-no-margin--bottom" appearance="positive" onClick={handleNextPage}>Next</Button>}
-              {page === 3 && <Button
-                appearance="positive"
-                className="u-no-margin--bottom"
-                onClick={handleSendButton}
-              >
-                Send
-              </Button>}
+              {page !== 1 && (
+                <Button
+                  className="u-no-margin--bottom"
+                  onClick={handlePreviousPage}
+                >
+                  Back
+                </Button>
+              )}
+              {page !== 3 && (
+                <Button
+                  className="u-no-margin--bottom"
+                  appearance="positive"
+                  onClick={handleNextPage}
+                >
+                  Next
+                </Button>
+              )}
+              {page === 3 && (
+                <Button
+                  appearance="positive"
+                  className="u-no-margin--bottom"
+                  onClick={handleSendButton}
+                >
+                  Send
+                </Button>
+              )}
               <button
                 className="p-button--negative u-no-margin--bottom"
                 onClick={closeHandler}
@@ -123,83 +140,141 @@ const SendButton = ({ user, users, session }) => {
           }
         >
           <form>
-           {page === 1 && 
-           <div>
-            <div>
-              <label>
-                <h5>To</h5>
-                <select onChange={handleAuthorChange} name="recipientId">
-                  <option value="">choose name</option>
-                  {users.map((person) => {
-                   if(person.name !== user.name ){
-                    return (<option key={person.id} value={person.id}>
-                      {person.name}
-                    </option>)
-                   }
-                  })}
-                </select>
-              </label>
-            </div>
-            <div>
-              <h5> Thanks Type </h5>
+            {page === 1 && (
+              <div>
                 <div>
-                  <RadioInput label="" onChange={handlePointChange} name="pointName" value="none" default/>
-                  <Card title="Send Quick Thanks">
-                    Send a personalised thank you card to a colleague
-                  </Card>
+                  <label>
+                    <h5>To</h5>
+                    <select onChange={handleAuthorChange} name="recipientId">
+                      <option value="">choose name</option>
+                      {users.map((person) => {
+                        if (person.name !== user.name) {
+                          return (
+                            <option key={person.id} value={person.id}>
+                              {person.name}
+                            </option>
+                          );
+                        }
+                      })}
+                    </select>
+                  </label>
                 </div>
                 <div>
-                  <RadioInput label="" onChange={handlePointChange} name="pointName" value="villager"/>
-                  <Card title="Send Thanks with Villager points">
-                    Send a personalised thank you card to a colleague
-                  </Card>
-                </div>
-                <div>
-                  <RadioInput label="" onChange={handlePointChange} name="pointName" value="explorer"/>
-                  <Card title="Send Thanks with Explorer points">
-                    Send a personalised thank you card to a colleague
-                  </Card>
+                  <h5> Thanks Type </h5>
+                  <Row>
+                    <Col size={4}>
+                      <div className="p-card">
+                        <label style={{ height: "14rem" }}>
+                          <RadioInput
+                            label=""
+                            onChange={handlePointChange}
+                            name="pointName"
+                            value="none"
+                            default
+                          />
+                          <h3 className="p-card__title">Send Quick Thanks</h3>
+                          <div className="p-card__content">
+                            Send a personalised thank you card to a colleague
+                          </div>
+                        </label>
+                      </div>
+                    </Col>
+                    <Col size={4}>
+                      <div className="p-card">
+                        <label style={{ height: "14rem" }}>
+                          <RadioInput
+                            label=""
+                            onChange={handlePointChange}
+                            name="pointName"
+                            value="villager"
+                          />
+                          <h3 className="p-card__title">
+                            Send Thanks with Villager points
+                          </h3>
+                          <div className="p-card__content">
+                            Send a personalised thank you card to a colleague
+                          </div>
+                        </label>
+                      </div>
+                    </Col>
+                    <Col size={4}>
+                      <div className="p-card">
+                        <label style={{ height: "14rem" }}>
+                          <RadioInput
+                            label=""
+                            onChange={handlePointChange}
+                            name="pointName"
+                            value="explorer"
+                          />
+                          <h3 className="p-card__title">
+                            Send Thanks with Explorer points
+                          </h3>
+                          <div className="p-card__content">
+                            Send a personalised thank you card to a colleague
+                          </div>
+                        </label>
+                      </div>
+                    </Col>
+                  </Row>
                 </div>
               </div>
-            </div>}
-            {page === 2 && points.pointName !== "none" && <div>
-              <h5><span> 30 </span> {points.pointName} points left to award</h5>
-              <div> 
+            )}
+            {page === 2 && points.pointName !== "none" && (
+              <div>
+                <h5>
+                  <span> 30 </span> {points.pointName} points left to award
+                </h5>
                 <div>
-                  <RadioInput label="" onChange={handlePointChange} name="pointValue" value={5}/>
-                  <Card title="5">
-                  {points.pointName} points
-                  </Card>
+                  <div>
+                    <RadioInput
+                      label=""
+                      onChange={handlePointChange}
+                      name="pointValue"
+                      value={5}
+                    />
+                    <Card title="5">{points.pointName} points</Card>
+                  </div>
+                  <div>
+                    <RadioInput
+                      label=""
+                      onChange={handlePointChange}
+                      name="pointValue"
+                      value={10}
+                    />
+                    <Card title="10">{points.pointName} points</Card>
+                  </div>
+                  <div>
+                    <RadioInput
+                      label=""
+                      onChange={handlePointChange}
+                      name="pointValue"
+                      value={20}
+                    />
+                    <Card title="20">{points.pointName} points</Card>
+                  </div>
+                  <div style={{ margin: "20px" }}>
+                    You'll have 15 {points.pointName} points left to award
+                    before 10th March 2022.
+                  </div>
                 </div>
-                <div>
-                  <RadioInput label="" onChange={handlePointChange} name="pointValue" value={10}/>
-                  <Card title="10">
-                  {points.pointName} points
-                  </Card>
-                </div>
-                <div>
-                  <RadioInput label="" onChange={handlePointChange} name="pointValue" value={20}/>
-                  <Card title="20">
-                  {points.pointName} points
-                  </Card>
-                </div>
-                <div style={{"margin" : "20px"}}>You'll have 15 {points.pointName} points left to award before 10th March 2022.</div>
               </div>
-            </div>}
-            {page === 3 && <div>
-              <label>
-                Content <span style={{ color: "grey" }}>( {count}</span> / 500 )
-              </label>
-              <textarea
-                id="content"
-                name="content"
-                value={newData.content}
-                onChange={handleTextarea}
-                maxLength={500}
-                style={{"minHeight": "200px"}}
-              ></textarea>
-            </div>
-            }
+            )}
+            {page === 3 && (
+              <div>
+                <label>
+                  Content <span style={{ color: "grey" }}>( {count}</span> / 500
+                  )
+                </label>
+                <textarea
+                  id="content"
+                  name="content"
+                  value={newData.content}
+                  onChange={handleTextarea}
+                  maxLength={500}
+                  style={{ minHeight: "200px" }}
+                ></textarea>
+              </div>
+            )}
           </form>
         </Modal>
       ) : null}
