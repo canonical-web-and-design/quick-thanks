@@ -1,5 +1,6 @@
 import { Col, Row } from "@canonical/react-components";
 import React from "react";
+import FadeIn from "./FadeIn";
 
 const Section = (props) => {
   return (
@@ -10,7 +11,9 @@ const Section = (props) => {
     >
       <Row>
         <Col size={12}>
-          <h2>{props.title}</h2>
+          <FadeIn>
+            <h2>{props.title}</h2>
+          </FadeIn>
           {props.children}
         </Col>
       </Row>
