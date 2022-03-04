@@ -8,13 +8,13 @@ import PreviousThanks from "./components/PreviousThanks";
 const User = (props) => {
   return (
     <>
-      <Section suru title={props.session?.user?.name}>
+      <Section suru title={props.user?.name}>
         <UserSummary {...props} />
       </Section>
-      <Section shallow title="Send thanks">
+      {props.user.id === props.session.user.id ? (<Section shallow title="Send thanks">
         <GiveThanks {...props} />
-      </Section>
-      <Section light shallow title="Previous thanks">
+      </Section>) : null}
+      <Section shallow title="Previous thanks">
         <PreviousThanks {...props} />
       </Section>
     </>
